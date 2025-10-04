@@ -96,6 +96,54 @@ export default function InsurancePage() {
         </div>
       </section>
 
+      {/* Camp Haven's Insurance Coverage Stack */}
+      <section className="py-16 bg-white border-t">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-semibold mb-6 text-gray-900">
+            Camp Haven&apos;s Insurance Coverage Stack
+          </h2>
+          <p className="text-gray-600 mb-10 max-w-3xl mx-auto">
+            Every Camp Haven property is protected by multiple layers of coverage to safeguard both our partners and guests. 
+            Our policies go beyond Airbnb&apos;s AirCover to ensure landlords, guests, and our operations are fully protected.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full border border-gray-200 rounded-lg text-left text-sm md:text-base">
+              <thead className="bg-gray-50 text-gray-800">
+                <tr>
+                  <th className="py-3 px-4 border-b">Layer</th>
+                  <th className="py-3 px-4 border-b">Coverage</th>
+                  <th className="py-3 px-4 border-b">Provider Example</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y">
+                <tr>
+                  <td className="py-4 px-4 font-medium text-gray-900">1. Platform</td>
+                  <td className="py-4 px-4 text-gray-700">Airbnb AirCover + Host Liability</td>
+                  <td className="py-4 px-4 text-gray-700">Airbnb</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-4 font-medium text-gray-900">2. Commercial / STR Policy</td>
+                  <td className="py-4 px-4 text-gray-700">Property + Business Liability + Loss of Income</td>
+                  <td className="py-4 px-4 text-gray-700">Proper Insurance</td>
+                </tr>
+                <tr>
+                  <td className="py-4 px-4 font-medium text-gray-900">3. Tenant Liability</td>
+                  <td className="py-4 px-4 text-gray-700">Covers landlord&apos;s property under our lease</td>
+                  <td className="py-4 px-4 text-gray-700">Hiscox, NEXT Insurance</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-10 text-gray-600 max-w-2xl mx-auto">
+            This layered structure ensures Camp Haven assumes all responsibility for guest-related damages, 
+            operational liability, and short-term rental compliance—protecting property owners from unexpected loss 
+            while maintaining full transparency.
+          </p>
+        </div>
+      </section>
+
       {/* Documentation */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
