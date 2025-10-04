@@ -9,10 +9,6 @@ import { supabase } from "@/lib/supabase"
 import { CheckCircle, Home, Mail, Phone, MapPin } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export const metadata = {
-  title: "List Your Property | Camp Haven Rentals",
-  description: "Start the process of listing your property with Camp Haven Rentals for guaranteed monthly rent.",
-}
 
 export default function OwnerInquiryPage() {
   const [formData, setFormData] = useState({

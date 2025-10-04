@@ -22,10 +22,6 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export const metadata = {
-  title: "Add Property Opportunity | Camp Haven Rentals CRM",
-  description: "Add a new property opportunity to the CRM pipeline.",
-}
 
 export default function AddOpportunityPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)

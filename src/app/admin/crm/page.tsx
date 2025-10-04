@@ -42,10 +42,6 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export const metadata = {
-  title: "Property CRM | Camp Haven Rentals",
-  description: "Comprehensive CRM for managing property opportunities and leasing pipeline.",
-}
 
 const statusColors = {
   prospecting: 'bg-gray-100 text-gray-800',

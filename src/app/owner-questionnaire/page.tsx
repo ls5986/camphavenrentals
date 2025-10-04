@@ -17,10 +17,6 @@ import {
 } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-export const metadata = {
-  title: "Property Questionnaire | Camp Haven Rentals",
-  description: "Complete property details for Camp Haven Rentals evaluation.",
-}
 
 const steps = [
   { id: 1, title: "Property Details", description: "Basic property information" },

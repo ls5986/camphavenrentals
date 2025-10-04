@@ -28,10 +28,6 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export const metadata = {
-  title: "Admin Portal | Camp Haven Rentals",
-  description: "Admin dashboard for managing owner inquiries and property questionnaires.",
-}
 
 interface OwnerInquiry {
   id: string

@@ -18,10 +18,6 @@ import {
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-export const metadata = {
-  title: "Import Opportunities | Camp Haven Rentals CRM",
-  description: "Bulk import property opportunities from CSV or AirDNA data.",
-}
 
 export default function ImportPage() {
   const [csvData, setCsvData] = useState<string>("")
