@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -19,6 +19,9 @@ import {
   Clock
 } from "lucide-react"
 import { siteConfig } from "@/site.config"
+import { ProtectedRoute } from "@/components/ProtectedRoute"
+import { useAuth } from "@/contexts/AuthContext"
+import { supabase } from "@/lib/supabase"
 
 // Mock data - will be replaced with Supabase data
 const mockProperties = [
@@ -82,6 +85,61 @@ const mockRecentActivity = [
 
 export default function OwnerDashboard() {
   const [activeTab, setActiveTab] = useState("overview")
+  const [properties, setProperties] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const { user, profile } = useAuth()
+
+  useEffect(() => {
+    const fetchUserProperties = async () => {
+      if (!user) return
+      
+      try {
+        const { data, error } = await supabase
+          .from('user_properties')
+          .select(`
+            *,
+            property_opportunities (*)
+          `)
+          .eq('user_id', user.id)
+        
+        if (error) throw error
+        setProperties(data || [])
+      } catch (error) {
+        console.error('Error fetching properties:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUserProperties()
+  }, [user])
+
+  return (
+    <ProtectedRoute ownerOnly>
+      <OwnerDashboardContent 
+        properties={properties}
+        loading={loading}
+        profile={profile}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+    </ProtectedRoute>
+  )
+}
+
+function OwnerDashboardContent({ 
+  properties, 
+  loading, 
+  profile, 
+  activeTab, 
+  setActiveTab 
+}: {
+  properties: any[]
+  loading: boolean
+  profile: any
+  activeTab: string
+  setActiveTab: (tab: string) => void
+}) {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -125,7 +183,7 @@ export default function OwnerDashboard() {
             </div>
             
             <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-600">Welcome back, Owner</span>
+              <span className="text-sm text-gray-600">Welcome back, {profile?.full_name || 'Owner'}</span>
               <Button variant="outline" size="sm">
                 <Settings className="h-4 w-4 mr-2" />
                 Settings

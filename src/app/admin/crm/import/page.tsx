@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { supabase } from "@/lib/supabase"
 import { 
@@ -21,7 +20,12 @@ import { useRouter } from "next/navigation"
 
 export default function ImportPage() {
   const [csvData, setCsvData] = useState<string>("")
-  const [importResults, setImportResults] = useState<any[]>([])
+  const [importResults, setImportResults] = useState<Array<{
+    row: Record<string, string>
+    status: 'success' | 'error'
+    errors?: string[]
+    data?: Record<string, unknown>
+  }>>([])
   const [isImporting, setIsImporting] = useState(false)
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const router = useRouter()
@@ -39,12 +43,12 @@ export default function ImportPage() {
     if (lines.length < 2) return []
 
     const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''))
-    const data = []
+    const data: Record<string, string>[] = []
 
     for (let i = 1; i < lines.length; i++) {
       const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''))
       if (values.length === headers.length) {
-        const row: any = {}
+        const row: Record<string, string> = {}
         headers.forEach((header, index) => {
           row[header] = values[index] || ''
         })
@@ -55,7 +59,7 @@ export default function ImportPage() {
     return data
   }
 
-  const validateOpportunity = (row: any) => {
+  const validateOpportunity = (row: Record<string, string>) => {
     const errors: string[] = []
     
     if (!row.address) errors.push('Address is required')
@@ -84,9 +88,14 @@ export default function ImportPage() {
 
     try {
       const parsedData = parseCSV(csvData)
-      const results = []
+      const results: Array<{
+        row: Record<string, string>
+        status: 'success' | 'error'
+        errors?: string[]
+        data?: Record<string, unknown>
+      }> = []
 
-      for (const row of parsedData) {
+      for (const row of parsedData as Record<string, string>[]) {
         const validation = validateOpportunity(row)
         
         if (!validation.isValid) {
@@ -137,7 +146,7 @@ export default function ImportPage() {
           results.push({
             row,
             status: 'error',
-            errors: [error.message || 'Database error']
+            errors: [error instanceof Error ? error.message : 'Database error']
           })
         }
       }
@@ -324,7 +333,7 @@ export default function ImportPage() {
                         
                         {result.status === 'success' && (
                           <div className="text-xs text-green-600">
-                            <strong>ID:</strong> {result.data.id}
+                            <strong>ID:</strong> {String(result.data?.id || 'N/A')}
                           </div>
                         )}
                       </div>

@@ -151,7 +151,7 @@ export interface PropertyOpportunity {
   airdna_revpar?: number
   airdna_competition_score?: number
   airdna_demand_score?: number
-  airdna_seasonality?: any
+  airdna_seasonality?: Record<string, number>
   airdna_last_updated?: string
   
   // Property Assets & Features
@@ -175,7 +175,7 @@ export interface PropertyOpportunity {
   
   // Market Analysis
   market_type?: 'urban' | 'suburban' | 'rural' | 'remote' | 'tourist' | 'business'
-  proximity_amenities?: any
+  proximity_amenities?: Record<string, number>
   local_attractions?: string[]
   accessibility_score?: number
   uniqueness_score?: number

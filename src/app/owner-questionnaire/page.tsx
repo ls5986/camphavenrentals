@@ -133,7 +133,7 @@ export default function OwnerQuestionnairePage() {
     if (!newItem.trim()) return
     setFormData(prev => ({
       ...prev,
-      [fieldName]: [...(prev[fieldName] as string[]), newItem]
+      [fieldName]: [...(prev[fieldName as keyof typeof prev] as string[]), newItem]
     }))
   }
 
@@ -157,7 +157,7 @@ export default function OwnerQuestionnairePage() {
     }))
   }
 
-  const handleApplianceChange = (index: number, field: string, value: any) => {
+  const handleApplianceChange = (index: number, field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       appliances: prev.appliances.map((appliance, i) => 
@@ -188,7 +188,7 @@ export default function OwnerQuestionnairePage() {
   const handleSubmit = async () => {
     setIsSubmitting(true)
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('property_questionnaires')
         .insert([{
           ...formData,

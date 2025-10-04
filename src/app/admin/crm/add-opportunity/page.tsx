@@ -15,10 +15,8 @@ import {
   DollarSign,
   TrendingUp,
   Home,
-  Phone,
-  Mail,
   Target,
-  Star
+  Users
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -26,8 +24,6 @@ import { useRouter } from "next/navigation"
 export default function AddOpportunityPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [customAssets, setCustomAssets] = useState<string[]>([''])
-  const [localAttractions, setLocalAttractions] = useState<string[]>([''])
-  const [tags, setTags] = useState<string[]>([''])
   const router = useRouter()
 
   const [formData, setFormData] = useState({
@@ -118,10 +114,6 @@ export default function AddOpportunityPage() {
     }))
   }
 
-  const handleArrayAdd = (fieldName: string, newItem: string, setter: React.Dispatch<React.SetStateAction<string[]>>) => {
-    if (!newItem.trim()) return
-    setter(prev => [...prev.filter(item => item.trim()), newItem])
-  }
 
   const handleArrayRemove = (fieldName: string, index: number, setter: React.Dispatch<React.SetStateAction<string[]>>) => {
     setter(prev => prev.filter((_, i) => i !== index))
@@ -131,22 +123,6 @@ export default function AddOpportunityPage() {
     setter(prev => prev.map((item, i) => i === index ? value : item))
   }
 
-  const calculateFinancials = () => {
-    const monthlyRent = parseFloat(formData.estimated_monthly_rent) || 0
-    const annualRevenue = parseFloat(formData.airdna_revenue_estimate) || (monthlyRent * 12)
-    const occupancyRate = parseFloat(formData.airdna_occupancy_estimate) || 0.65
-    const operatingCosts = parseFloat(formData.estimated_operating_costs) || (annualRevenue * 0.3)
-    const netProfit = annualRevenue - operatingCosts
-    const roi = monthlyRent > 0 ? ((netProfit / (monthlyRent * 12)) * 100) : 0
-
-    setFormData(prev => ({
-      ...prev,
-      estimated_annual_revenue: annualRevenue.toString(),
-      estimated_occupancy_rate: occupancyRate.toString(),
-      estimated_net_profit: netProfit.toString(),
-      roi_percentage: roi.toString()
-    }))
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -178,15 +154,12 @@ export default function AddOpportunityPage() {
         roi_percentage: formData.roi_percentage ? parseFloat(formData.roi_percentage) : null,
         internal_score: formData.internal_score ? parseInt(formData.internal_score) : null,
         custom_assets: customAssets.filter(item => item.trim()),
-        local_attractions: localAttractions.filter(item => item.trim()),
-        tags: tags.filter(item => item.trim()),
         airdna_last_updated: new Date().toISOString()
       }
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('property_opportunities')
         .insert([opportunityData])
-        .select()
 
       if (error) throw error
 

@@ -27,6 +27,7 @@ import {
   Plus
 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { ProtectedRoute } from "@/components/ProtectedRoute"
 
 
 interface OwnerInquiry {
@@ -54,6 +55,14 @@ interface PropertyQuestionnaire {
 }
 
 export default function AdminPage() {
+  return (
+    <ProtectedRoute adminOnly>
+      <AdminPageContent />
+    </ProtectedRoute>
+  )
+}
+
+function AdminPageContent() {
   const [activeTab, setActiveTab] = useState<'inquiries' | 'questionnaires'>('inquiries')
   const [inquiries, setInquiries] = useState<OwnerInquiry[]>([])
   const [questionnaires, setQuestionnaires] = useState<PropertyQuestionnaire[]>([])

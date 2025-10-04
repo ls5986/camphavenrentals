@@ -41,6 +41,7 @@ import {
   Upload
 } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { ProtectedRoute } from "@/components/ProtectedRoute"
 
 
 const statusColors = {
@@ -66,6 +67,14 @@ const priorityColors = {
 }
 
 export default function CRMPage() {
+  return (
+    <ProtectedRoute adminOnly>
+      <CRMPageContent />
+    </ProtectedRoute>
+  )
+}
+
+function CRMPageContent() {
   const [opportunities, setOpportunities] = useState<PropertyOpportunity[]>([])
   const [filteredOpportunities, setFilteredOpportunities] = useState<PropertyOpportunity[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -551,7 +560,7 @@ export default function CRMPage() {
                       <h4 className="font-semibold text-gray-900 mb-3">AirDNA Analysis</h4>
                       <div className="space-y-2 text-sm">
                         <div><strong>Est. Annual Revenue:</strong> ${selectedOpportunity.airdna_revenue_estimate.toLocaleString()}</div>
-                        <div><strong>Est. Occupancy:</strong> {(selectedOpportunity.airdna_occupancy_estimate * 100)?.toFixed(0)}%</div>
+                        <div><strong>Est. Occupancy:</strong> {selectedOpportunity.airdna_occupancy_estimate ? (selectedOpportunity.airdna_occupancy_estimate * 100).toFixed(0) : 'N/A'}%</div>
                         <div><strong>Est. ADR:</strong> ${selectedOpportunity.airdna_adr_estimate}</div>
                         <div><strong>Demand Score:</strong> {selectedOpportunity.airdna_demand_score}/100</div>
                         <div><strong>Competition Score:</strong> {selectedOpportunity.airdna_competition_score}/100</div>
