@@ -19,11 +19,8 @@ export default function OwnerLoginPage() {
     e.preventDefault()
     setIsLoading(true)
     
-    // TODO: Implement actual authentication with Supabase
-    // For now, just redirect to dashboard
-    setTimeout(() => {
-      window.location.href = "/owner-portal/dashboard"
-    }, 1000)
+    // Redirect to the new auth login system
+    window.location.href = "/auth/login"
   }
 
   return (
@@ -39,6 +36,16 @@ export default function OwnerLoginPage() {
           <p className="mt-2 text-sm text-gray-600">
             Access your property dashboard, payments, and documentation
           </p>
+          
+          {/* New Auth System Notice */}
+          <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+            <p className="text-sm text-blue-800">
+              <strong>New User?</strong> We've upgraded our login system! 
+              <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-medium ml-1">
+                Create your account here →
+              </Link>
+            </p>
+          </div>
         </div>
 
         {/* Login Form */}
@@ -111,6 +118,18 @@ export default function OwnerLoginPage() {
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
+            
+            {/* Sign Up Section */}
+            <div className="mt-6 pt-6 border-t">
+              <p className="text-center text-sm text-gray-600 mb-4">
+                New to Camp Haven Rentals?
+              </p>
+              <Button asChild variant="outline" className="w-full">
+                <Link href="/auth/signup">
+                  Create Your Account
+                </Link>
+              </Button>
+            </div>
           </CardContent>
         </Card>
 

@@ -100,6 +100,12 @@ export function Navbar() {
                   </Link>
                 </Button>
                 <Button asChild size="sm">
+                  <Link href="/auth/signup" className="flex items-center space-x-2">
+                    <User className="h-4 w-4" />
+                    <span>Sign Up</span>
+                  </Link>
+                </Button>
+                <Button asChild size="sm">
                   <Link href="/owner-inquiry" className="flex items-center space-x-2">
                     <Home className="h-4 w-4" />
                     <span>List Your Property</span>
@@ -175,6 +181,12 @@ export function Navbar() {
                       <Link href="/auth/login" onClick={() => setIsOpen(false)} className="flex items-center justify-center space-x-2">
                         <LogIn className="h-4 w-4" />
                         <span>Sign In</span>
+                      </Link>
+                    </Button>
+                    <Button asChild className="w-full">
+                      <Link href="/auth/signup" onClick={() => setIsOpen(false)} className="flex items-center justify-center space-x-2">
+                        <User className="h-4 w-4" />
+                        <span>Sign Up</span>
                       </Link>
                     </Button>
                     <Button asChild className="w-full">
