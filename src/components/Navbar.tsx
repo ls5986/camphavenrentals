@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Menu, X, Mountain, LogIn } from "lucide-react"
+import { Menu, X, Mountain, LogIn, Home } from "lucide-react"
 import { siteConfig } from "@/site.config"
 
 export function Navbar() {
@@ -43,12 +43,18 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <Button asChild variant="outline" size="sm">
-              <Link href="/owner-portal/login" className="flex items-center space-x-2">
-                <LogIn className="h-4 w-4" />
-                <span>Owner Login</span>
-              </Link>
-            </Button>
+      <Button asChild variant="outline" size="sm">
+        <Link href="/owner-portal/login" className="flex items-center space-x-2">
+          <LogIn className="h-4 w-4" />
+          <span>Owner Login</span>
+        </Link>
+      </Button>
+      <Button asChild size="sm">
+        <Link href="/owner-inquiry" className="flex items-center space-x-2">
+          <Home className="h-4 w-4" />
+          <span>List Your Property</span>
+        </Link>
+      </Button>
             <Button asChild>
               <Link href="/contact">Email Us</Link>
             </Button>
@@ -85,6 +91,12 @@ export function Navbar() {
                   <Link href="/owner-portal/login" onClick={() => setIsOpen(false)} className="flex items-center justify-center space-x-2">
                     <LogIn className="h-4 w-4" />
                     <span>Owner Login</span>
+                  </Link>
+                </Button>
+                <Button asChild className="w-full">
+                  <Link href="/owner-inquiry" onClick={() => setIsOpen(false)} className="flex items-center justify-center space-x-2">
+                    <Home className="h-4 w-4" />
+                    <span>List Your Property</span>
                   </Link>
                 </Button>
                 <Button asChild className="w-full">
